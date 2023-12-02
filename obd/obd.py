@@ -289,7 +289,7 @@ class OBD(object):
         # if we don't already know how many frames this command returns,
         # log it, so we can specify it next time
         if cmd not in self.__frame_counts:
-            self.__frame_counts[cmd] = sum([len(m.frames) for m in messages])
+            self.__frame_counts[cmd] = sum(len(m.frames) for m in messages)
 
         if not messages:
             logger.info("No valid OBD Messages returned")

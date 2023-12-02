@@ -359,7 +359,7 @@ class Commands():
 
     def __len__(self):
         """ returns the number of commands supported by python-OBD """
-        return sum([len(mode) for mode in self.modes])
+        return sum(len(mode) for mode in self.modes)
 
     def __contains__(self, name):
         """ calls has_name(s) """

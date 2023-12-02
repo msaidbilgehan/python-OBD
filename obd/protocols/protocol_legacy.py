@@ -88,7 +88,7 @@ class LegacyProtocol(Protocol):
 
         # test that all frames are responses to the same Mode (SID)
         if len(frames) > 1:
-            if not all([mode == f.data[0] for f in frames[1:]]):
+            if not all(mode == f.data[0] for f in frames[1:]):
                 logger.debug("Recieved frames from multiple commands")
                 return False
 

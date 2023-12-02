@@ -127,7 +127,7 @@ def twos_comp(val, num_bits):
 
 
 def isHex(_hex):
-    return all([c in string.hexdigits for c in _hex])
+    return all(c in string.hexdigits for c in _hex)
 
 
 def contiguous(l, start, end):
@@ -141,7 +141,7 @@ def contiguous(l, start, end):
 
     # for consequtiveness, look at the integers in pairs
     pairs = zip(l, l[1:])
-    if not all([p[0] + 1 == p[1] for p in pairs]):
+    if not all(p[0] + 1 == p[1] for p in pairs):
         return False
 
     return True
