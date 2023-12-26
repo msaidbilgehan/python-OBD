@@ -428,9 +428,8 @@ def dtc(messages):
     for n in range(1, len(d), 2):
 
         # parse the code
-        dtc = parse_dtc((d[n - 1], d[n]))
 
-        if dtc is not None:
+        if (dtc := parse_dtc((d[n - 1], d[n]))) is not None:
             codes.append(dtc)
 
     return codes
@@ -449,10 +448,9 @@ def parse_monitor_test(d, mon):
         test.name = "Unknown"
         test.desc = "Unknown"
 
-    uas = UAS_IDS.get(d[2], None)
 
     # if we can't decode the value, abort
-    if uas is None:
+    if (uas := UAS_IDS.get(d[2], None)) is None:
         logger.debug("Encountered unknown Units and Scaling ID")
         return None
 
@@ -474,17 +472,15 @@ def monitor(messages):
     mon = Monitor()
 
     # test that we got the right number of bytes
-    extra_bytes = len(d) % 9
 
-    if extra_bytes != 0:
+    if (extra_bytes := len(d) % 9) != 0:
         logger.debug("Encountered monitor message with non-multiple of 9 bytes. Truncating...")
         d = d[:len(d) - extra_bytes]
 
     # look at data in blocks of 9 bytes (one test result)
     for n in range(0, len(d), 9):
         # extract the 9 byte block, and parse a new MonitorTest
-        test = parse_monitor_test(d[n:n + 9], mon)
-        if test is not None:
+        if (test := parse_monitor_test(d[n:n + 9], mon)) is not None:
             mon.add_test(test)
 
     return mon
@@ -509,7 +505,6 @@ def decode_encoded_string(messages, length):
 
 
 def cvn(messages):
-    d = decode_encoded_string(messages, 4)
-    if d is None:
+    if (d := decode_encoded_string(messages, 4)) is None:
         return None
     return bytes_to_hex(d)

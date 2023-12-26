@@ -85,8 +85,7 @@ class BitArray:
         return self.bits.count("0")
 
     def value(self, start, stop):
-        bits = self.bits[start:stop]
-        if bits:
+        if bits := self.bits[start:stop]:
             return int(bits, 2)
         else:
             return 0
